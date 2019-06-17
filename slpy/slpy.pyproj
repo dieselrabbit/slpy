@@ -22,7 +22,42 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="slgateway\decode_response\config.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="slgateway\const.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="slgateway\decode_response\datautil.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="slgateway\decode_response\status.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="slgateway\discovery.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="slgateway\login.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="slgateway\msgutil.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="slgateway\request.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="slgateway\slgateway.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="slpy.py" />
+    <Compile Include="devices\slDevice.py" />
+    <Compile Include="devices\slSensor.py" />
+    <Compile Include="devices\slSwitch.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="slgateway\" />
+    <Folder Include="slgateway\decode_response\" />
+    <Folder Include="devices\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
