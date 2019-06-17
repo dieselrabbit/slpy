@@ -69,7 +69,6 @@ artifacts/
 *.svclog
 *.scc
 *.pyc
-*.pyproj
 
 # Chutzpah Test files
 _Chutzpah*
