@@ -1,7 +1,7 @@
 class slDevice:
-    def __init__(self, slBridge, dataID, data):
-        self._bridge = slBridge
-        self._id = dataID
+    def __init__(self, gateway, id, data):
+        self._gateway = gateway
+        self._id = id
         self._name = data["name"]
         self._state = data["value"]
         self._hassType = data["hassType"]

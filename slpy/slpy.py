@@ -15,7 +15,7 @@ class screenlogicpy:
         self.__devices = {}
         self.__data = {}
 
-        self.__gateway = slgateway(gateway_ip, gateway_port)
+        self.__gateway = slgateway(verbose, gateway_ip, gateway_port)
 
         if(self.__gateway.connect()):
             if(verbose):
@@ -27,6 +27,18 @@ class screenlogicpy:
         else:
             if(verbose):
                 print("Connection failed!")
+
+    def update(self):
+        curTime = time.time()
+        with self.__lock:
+            if ((curTime - self.__lastUpdate) > self.__updateInterval):
+                self.__lastUpdate = curTime
+                self._updateData()
+                self._updateDevices()
+
+    def _updateData(self):
+        self.__gateway.getStatus(self.__data)
+
 
     def _updateDevices(self):
         self._updateSwitches()
@@ -62,10 +74,42 @@ class screenlogicpy:
                 else:
                     self.__devices[k] = slSensor(self, k, v)
 
+    def setCircuit(self, circuitID, circuitState):
+        if(circuitID in self.__devices and self.__gateway.setCircuit(circuitID, circuitState)):
+            self._updateData()
+            return True
+
+
     def getFriendly(self):
         self._updateDevices()
         for k, d in self.__devices.items():
             print("{} - {}: {}".format(k, d.name, d.friendlyState))
+
+
+
+    def getJson(self):
+        dictOut = {}
+        for k, d in self.__devices.items():
+            if(d.hassType == 'sensor'):
+                dictData = dict(name=d.name,state=d.friendlyState)#state,unit=d.unit,friendly_state=d.friendlyState)
+            else:
+                dictData = {}
+                dictData['id'] = k
+                dictData['name'] = d.name
+                dictData['state'] = self._jsonName(d.friendlyState)
+            dictOut[self._jsonName(d.name)] = dictData 
+        return json.dumps(dictOut)
+
+    def _jsonName(self, name):
+        return name.replace(" ","_").lower()
+
+
+    def getDevices(self):
+        return self.__devices
+
+
+    def dumpDict(self):
+        return json.dumps(self.__data, indent=2)
 
 
 if __name__ == "__main__":

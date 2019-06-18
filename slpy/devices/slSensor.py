@@ -2,10 +2,10 @@ from devices.slDevice import slDevice
 from slgateway.const import mapping
 
 class slSensor(slDevice):
-    def __init__(self, slBridge, dataID, data):
+    def __init__(self, gateway, id, data):
         if('hassType' not in data):
             data['hassType'] = "sensor"
-        super().__init__(slBridge, dataID, data)
+        super().__init__(gateway, id, data)
         if('unit' in data):
             self._unit = data["unit"]
         else:

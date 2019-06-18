@@ -2,10 +2,10 @@ from devices.slDevice import slDevice
 from slgateway.const import mapping
 
 class slSwitch(slDevice):
-    def __init__(self, slBridge, dataID, data):
+    def __init__(self, gateway, id, data):
         if('hassType' not in data):
             data['hassType'] = "switch"
-        super().__init__(slBridge, dataID, data)
+        super().__init__(gateway, id, data)
 
     def toggle(self):
         if(self._state == 0):
@@ -13,7 +13,7 @@ class slSwitch(slDevice):
         else:
             newState = 0
         
-        if(self.__bridge.setCircuit(self._id, newState)):
+        if(self.__gateway.setCircuit(self._id, newState)):
             print("{} set to {}".format(self._name, self.friendlyState))
         else:
             print("Setting of circuit failed!")

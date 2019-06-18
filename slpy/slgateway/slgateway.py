@@ -3,7 +3,7 @@ from slgateway.login import gateway_login
 from slgateway.request import *
 
 class slgateway:
-    def __init__(self, ip=None, port=None, verbose=False):
+    def __init__(self, verbose=False, ip=None, port=None):
         self.__ip = ip
         self.__port = port
         self.__connected = False
@@ -42,8 +42,6 @@ class slgateway:
     def set_circuit(self, circuitID, circuitState):
         if(self.__connected or self.connect()):
             return request_pool_button_press(self.__socket, circuitID, circuitState)
-
-
 
 
 

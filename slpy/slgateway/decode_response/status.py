@@ -1,4 +1,3 @@
-# -*- coding: cp850 -*-
 from slgateway.decode_response.datautil import *
 from slgateway.const import *
 
