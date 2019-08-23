@@ -4,7 +4,7 @@ import struct
 import ipaddress
 from slgateway.const import me
 
-def discover(self, verbose=False):
+def discovery(self, verbose=False):
     broadcast = "255.255.255.255"
     port  = 1444
     addressfamily = socket.AF_INET
@@ -13,6 +13,7 @@ def discover(self, verbose=False):
     data  = struct.pack('<bbbbbbbb', 1,0,0,0, 0,0,0,0)
     try:
         udpSock = socket.socket(addressfamily, socket.SOCK_DGRAM)
+        udpSock.settimeout(5)
         udpSock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
     except:
         sys.stderr.write("ERROR: {}: Socket setup failed.\n".format(me))

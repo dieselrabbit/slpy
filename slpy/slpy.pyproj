@@ -12,6 +12,10 @@
     <OutputPath>.</OutputPath>
     <Name>slpy</Name>
     <RootNamespace>slpy</RootNamespace>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments>
+    </CommandLineArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,6 +38,9 @@
     <Compile Include="slgateway\decode_response\status.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="slgateway\decode_response\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="slgateway\discovery.py">
       <SubType>Code</SubType>
     </Compile>
@@ -46,18 +53,16 @@
     <Compile Include="slgateway\request.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="slgateway\slgateway.py">
+    <Compile Include="slgateway\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="slpy.py" />
-    <Compile Include="devices\slDevice.py" />
-    <Compile Include="devices\slSensor.py" />
-    <Compile Include="devices\slSwitch.py" />
+    <Compile Include="slpy.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="slgateway\" />
     <Folder Include="slgateway\decode_response\" />
-    <Folder Include="devices\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,3 +1,4 @@
+import os
 import socket
 from slgateway.msgutil import *
 from slgateway.const import code
@@ -7,8 +8,8 @@ def create_login_message():
   schema = 348
   connectionType = 0
   clientVersion = makeMessageString('Android')
-  pid  = 2
-  password = "mypassword" # passwd must be <= 16 chars. empty is not OK.
+  pid  = 2 #os.getpid() #random.randint(2,100)
+  password = "0000000000000000" # passwd must be <= 16 chars. empty is not OK.
   passwd = makeMessageString(password)
   fmt = "<II" + str(len(clientVersion)) + "s" + str(len(passwd)) + "sxI"
   return struct.pack(fmt, schema, connectionType, clientVersion, passwd, pid)
@@ -23,6 +24,7 @@ def gateway_login(gateway_ip, gateway_port):
             tcpSock = None
             continue
         try:
+            tcpSock.settimeout(10)
             tcpSock.connect(sa)
         except OSError as msg:
             tcpSock.close()

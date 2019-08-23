@@ -10,7 +10,7 @@ def request_gateway(gateway_socket):
     if not data:
         sys.stderr.write("WARNING: {}: no {} data received.\n".format(me, "VERSION_ANSWER"))
     rcvcode, buff = takeMessage(data)
-    if(rcvcode != code.VERSION_ANSWER):
+    if (rcvcode != code.VERSION_ANSWER):
         sys.stderr.write("WARNING: {}: rcvCode({}) != {}.\n".format(me, rcvCode2, code.VERSION_ANSWER))
         return False
         #sys.exit(10)
@@ -19,7 +19,7 @@ def request_gateway(gateway_socket):
 def request_pool_config(gateway_socket, data):
     gateway_socket.sendall(makeMessage(code.CTRLCONFIG_QUERY, struct.pack("<2I", 0, 0)))
     rcvcode, buff = takeMessage(gateway_socket.recv(1024))
-    if(rcvcode != code.CTRLCONFIG_ANSWER):
+    if (rcvcode != code.CTRLCONFIG_ANSWER):
         sys.stderr.write("WARNING: {}: rcvCode({}) != {}.\n".format(me, rcvcode, code.CTRLCONFIG_ANSWER))
         return False
         #sys.exit(11)
@@ -28,7 +28,7 @@ def request_pool_config(gateway_socket, data):
 def request_pool_status(gateway_socket, data):
     gateway_socket.sendall(makeMessage(code.POOLSTATUS_QUERY, struct.pack("<I", 0)))
     rcvcode, buff = takeMessage(gateway_socket.recv(1024))
-    if(rcvcode != code.POOLSTATUS_ANSWER):
+    if (rcvcode != code.POOLSTATUS_ANSWER):
         sys.stderr.write("WARNING: {}: rcvCode({}) != {}.\n".format(me, rcvCode, code.POOLSTATUS_ANSWER))
         return False
         #sys.exit(11)
@@ -37,9 +37,9 @@ def request_pool_status(gateway_socket, data):
 def request_pool_button_press(gateway_socket, circuit_id, circuit_state):
     gateway_socket.sendall(makeMessage(code.BUTTONPRESS_QUERY, struct.pack("<III", 0, circuit_id, circuit_state)))
     rcvcode, buff = takeMessage(gateway_socket.recv(1024))
-    if(rcvcode != code.BUTTONPRESS_ANSWER):
+    if (rcvcode != code.BUTTONPRESS_ANSWER):
         sys.stderr.write("WARNING: {}: rcvCode({}) != {}.\n".format(me, rcvCode, code.BUTTONPRESS_ANSWER))
         return False
         #sys.exit(11)
-    print(rcvcode)
+    #print(rcvcode)
     return True

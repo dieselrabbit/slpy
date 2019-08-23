@@ -8,7 +8,7 @@ class header:
   fmt    = "<HHI"
   length = struct.calcsize(fmt)
 
-# Some of the message codes as documented in Sections 4 and 5 of the above PDF.
+# Some of the message codes
 class code:
   MSG_CODE_1        = 0
   UNKNOWN_ANSWER    = 13
@@ -27,6 +27,21 @@ class code:
 
 class mapping:
   BODY_TYPE  = ['Pool', 'Spa']
-  HEAT_MODE  = ['Off', 'Solar', "Solar Prefered", 'Heat', "Don't Change"]
+  
+  HEAT_MODE  = ['Off', 'Solar',
+                "Solar Prefered",
+                'Heat', "Don't Change"]
+  
   ON_OFF     = ['Off', 'On']
-  COLOR_MODE = ['Off', 'On', 'Set', 'Sync', 'Swim', 'Party', 'Romantic', 'Caribbean', 'American', 'Sunset', 'Royal', 'Save', 'Recall', 'Blue', 'Green', 'Red', 'White', 'Magenta', 'Thumper', 'Next', 'Reset', 'Hold']
+  
+  COLOR_MODE = ['Off', 'On',
+                'Set', 'Sync',
+                'Swim', 'Party',
+                'Romantic', 'Caribbean',
+                'American', 'Sunset',
+                'Royal', 'Save',
+                'Recall', 'Blue',
+                'Green', 'Red',
+                'White', 'Magenta',
+                'Thumper', 'Next',
+                'Reset', 'Hold']

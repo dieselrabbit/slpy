@@ -30,16 +30,16 @@ def decode_pool_status_response(buff, data):
         unittxt = '\xb0F'
 
     airTemp, offset = getSome("i", buff, offset)
-    data['sensors']['air_temperature'] = dict(name="Air Temperature", \
-                                            value=airTemp, \
-                                            hassType="sensor", \
-                                            unit=unittxt)
+    data['sensors']['air_temperature'] = {
+        'name':"Air Temperature",
+        'value':airTemp}
 
     bodiesCount, offset = getSome("I", buff, offset)
+    # Should this default to 2?
     bodiesCount = min(bodiesCount, 2)
 
     if('bodies' not in data):
-        data['bodies'] = {} #[{} for x in range(bodiesCount)]
+        data['bodies'] = {} 
 
     for i in range(bodiesCount):
         bodyType, offset = getSome("I", buff, offset)
@@ -48,41 +48,39 @@ def decode_pool_status_response(buff, data):
         if(i not in data['bodies']):
             data['bodies'][i] = {}
     
-        data['bodies'][i]['body_type'] = dict(name="Type of body of water", \
-                                                value=bodyType)
+        data['bodies'][i]['body_type'] = {
+            'name':"Type of body of water",
+            'value':bodyType}
 
         currentTemp, offset = getSome("i", buff, offset)
-        data['bodies'][i]['current_temperature'] = dict(name="Current {} Temperature"\
-                                                .format(mapping.BODY_TYPE[bodyType]), \
-                                                value=currentTemp, \
-                                                hassType='sensor', \
-                                                unit=unittxt)
+        bodyName = "Current {} Temperature".format(mapping.BODY_TYPE[bodyType])
+        data['bodies'][i]['current_temperature'] = {
+            'name':bodyName,
+            'value':currentTemp}
 
         heatStatus, offset = getSome("i", buff, offset)
-        data['bodies'][i]['heat_status'] = dict(name="{} Heater"\
-                                                .format(mapping.BODY_TYPE[bodyType]), \
-                                                value=heatStatus, \
-                                                hassType='binary_sensor')
+        heaterName = "{} Heater".format(mapping.BODY_TYPE[bodyType])
+        data['bodies'][i]['heat_status'] = {
+            'name':heaterName,
+            'value':heatStatus}
 
         heatSetPoint, offset = getSome("i", buff, offset)
-        data['bodies'][i]['heat_set_point'] = dict(name="{} Heat Set Point"\
-                                                .format(mapping.BODY_TYPE[bodyType]), \
-                                                value=heatSetPoint, \
-                                                hassType='sensor', \
-                                                unit=unittxt)
+        hspName = "{} Heat Set Point".format(mapping.BODY_TYPE[bodyType])
+        data['bodies'][i]['heat_set_point'] = {
+            'name':hspName,
+            'value':heatSetPoint}
 
         coolSetPoint, offset = getSome("i", buff, offset)
-        data['bodies'][i]['cool_set_point'] = dict(name="{} Cool Set Point"\
-                                                .format(mapping.BODY_TYPE[bodyType]), \
-                                                value=coolSetPoint, \
-                                                hassType='sensor', \
-                                                unit=unittxt)
+        cspName = "{} Cool Set Point".format(mapping.BODY_TYPE[bodyType])
+        data['bodies'][i]['cool_set_point'] = {
+            'name':cspName,
+            'value':coolSetPoint}
 
         heatMode, offset = getSome("i", buff, offset)
-        data['bodies'][i]['heat_mode'] = dict(name="{} Heater Mode"\
-                                                .format(mapping.BODY_TYPE[bodyType]), \
-                                                value=heatMode,\
-                                                hassType='sensor')
+        hmName = "{} Heater Mode".format(mapping.BODY_TYPE[bodyType])
+        data['bodies'][i]['heat_mode'] = {
+            'name':hmName,
+            'value':heatMode}
   
     circuitCount, offset = getSome("I", buff, offset)
 
@@ -101,8 +99,6 @@ def decode_pool_status_response(buff, data):
         circuitstate, offset = getSome("I", buff, offset)
         data['circuits'][circuitID]['value'] = circuitstate
 
-        data['circuits'][circuitID]['hassType'] = 'switch'
- 
         circuitColorSet, offset = getSome("B", buff, offset)
         circuitColorPos, offset = getSome("B", buff, offset)
         circuitColorStagger, offset = getSome("B", buff, offset)
@@ -112,37 +108,37 @@ def decode_pool_status_response(buff, data):
         data['chemistry'] = {}
     
     pH, offset = getSome("i", buff, offset)
-    data['chemistry']['ph'] = dict(name="pH", \
-                                    value=(pH / 100), \
-                                    hassType='sensor')
+    data['chemistry']['ph'] = {
+        'name':"pH",
+        'value':(pH / 100)}
   
     orp, offset = getSome("i", buff, offset)
-    data['chemistry']['orp'] = dict(name="ORP", value=orp, \
-                                    hassType='sensor')
+    data['chemistry']['orp'] = {
+        'name':"ORP",
+        'value':orp}
 
     saturation, offset = getSome("i", buff, offset)
-    data['chemistry']['saturation'] = dict(name="Saturation Index", \
-                                            value=(saturation / 100), \
-                                            hassType='sensor')
+    data['chemistry']['saturation'] = {
+        'name':"Saturation Index",
+        'value':(saturation / 100)}
 
     saltPPM, offset = getSome("i", buff, offset)
-    data['chemistry']['salt_ppm'] = dict(name="Salt", \
-                                        value=saltPPM, \
-                                        unit='ppm', \
-                                        hassType='sensor')
+    data['chemistry']['salt_ppm'] = {
+        'name':"Salt",
+        'value':saltPPM}
 
     pHTank, offset = getSome("i", buff, offset)
-    data['chemistry']['ph_tank_level'] = dict(name="pH Tank Level", \
-                                            value=pHTank, \
-                                            hassType='sensor')
+    data['chemistry']['ph_tank_level'] = {
+        'name':"pH Tank Level",
+        'value':pHTank}
 
     orpTank, offset = getSome("i", buff, offset)
-    data['chemistry']['orp_tank_level'] = dict(name="ORP Tank Level", \
-                                            value=orpTank, \
-                                            hassType='sensor')
+    data['chemistry']['orp_tank_level'] = {
+        'name':"ORP Tank Level",
+        'value':orpTank}
 
     alarms, offset = getSome("i", buff, offset)
-    data['chemistry']['alarms'] = dict(name="Chemistry Alarm", \
-                                        value=alarms, \
-                                        hassType='binary_sensor')
+    data['chemistry']['alarms'] = {
+        'name':"Chemistry Alarm",
+        'value':alarms}
 
